@@ -4,7 +4,7 @@ define("DOWNLOAD_PATH", "./artifacts/build/");
 
 function getWindowsDownloadFilename()
 {
-    $dir = glob('.' . DOWNLOAD_PATH . 'owl-0*.exe');
+    $dir = glob('/owl/public_html/' . DOWNLOAD_PATH . 'owl-0*.exe');
     usort($dir, create_function('$a,$b', 'return filemtime($b) - filemtime($a);'));
     if (count($dir) > 0)
     {
@@ -107,7 +107,7 @@ function getWindowsDownloadFilename()
 <?php 
     $filename = getWindowsDownloadFilename();
     echo '<a href="' . DOWNLOAD_PATH . $filename . '">' . $filename . '</a>';
-    $filetime = date("F d Y", filemtime('.' . DOWNLOAD_PATH . $filename));
+    $filetime = date("F d Y", filemtime('/owl/public_html/' . DOWNLOAD_PATH . $filename));
     echo '&nbsp;(' . $filetime . ')';
 ?> 
 
