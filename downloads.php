@@ -1,10 +1,21 @@
 <?php
 
+define("PRODUCTION", 0);
+
 define("DOWNLOAD_PATH", "./artifacts/build/");
+
+if (PRODUCTION == 1)
+{
+    define('LOCAL_PATH_PREFIX', "/owl/public_html/");
+}
+else
+{
+    define('LOCAL_PATH_PREFIX', "");
+}
 
 function getWindowsDownloadFilename()
 {
-    $dir = glob('/owl/public_html/' . DOWNLOAD_PATH . 'owl-0*.exe');
+    $dir = glob(LOCAL_PATH_PREFIX . DOWNLOAD_PATH . 'owl-0*.exe');
     usort($dir, create_function('$a,$b', 'return filemtime($b) - filemtime($a);'));
     if (count($dir) > 0)
     {
@@ -107,7 +118,7 @@ function getWindowsDownloadFilename()
 <?php 
     $filename = getWindowsDownloadFilename();
     echo '<a href="' . DOWNLOAD_PATH . $filename . '">' . $filename . '</a>';
-    $filetime = date("F d Y", filemtime('/owl/public_html/' . DOWNLOAD_PATH . $filename));
+    $filetime = date("F d Y", filemtime(LOCAL_PATH_PREFIX . DOWNLOAD_PATH . $filename));
     echo '&nbsp;(' . $filetime . ')';
 ?> 
 
